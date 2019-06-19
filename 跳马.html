@@ -1,314 +1,283 @@
-
-<DOCTYPRE html>
-
+<!DOCTYPE html>
 <html>
-
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>
-
-<title>
-
-ÌøÂí
-
-</title>
-
-
-
+    <title>è·³é©¬</title>
+    
 </head>
 
-<body> 
-
-<!ÊäÈë¿òÉè¼Æ>
-
-<form action="/test.php" method="get">
-
-ÌøÂí
-
-<br><br><br>
-
-
-
-ÆåÅÌ×ø±êÏµ£ºĞĞÎªyÖá£¬ÁĞÎªxÖá<br>
-
-ÆåÅÌĞĞÁĞËµÃ÷£ºÈç3*4Ö¸ 3ĞĞ¸ñ×Ó*4ÁĞ¸ñ×Ó£¬ÈôÀí½âÎªÏßÌõÎª4ĞĞÏßÌõ*5ÁĞÏßÌõ<br>
-
-ÊäÈëÊı¾İËµÃ÷£ºÎªÁËÄúÊ¹ÓÃÌåÑé£¬ÇëÎğÊäÈë¹ı´óÊı¾İ£¬ÕâÀïÎÒÃÇµÄÏŞÖÆÎª10*10
-
-
-
-<br>
-
-<hr>
-
-ÆåÅÌÉè¼Æ:
-
-<br>
-
-ÆåÅÌĞĞÊı:<input type="number" name="row" id="row" min="0" max="10" />
-
-ÆåÅÌÁĞÊı:<input type="number" name="column" id="column" min="0" max="10"/>
-
-<hr>
-
-Ô­Ê¼ÆğÌøµã:
-
-<br>
-
-ÆğÌøµãËùÔÚĞĞ:<input type="number" name="fromRow" id="fromRow" min="0" max="10" />
-
-ÆğÌøµãËùÔÚÁĞ:<input type="number" name="fromColumn" id="fromColumn" min="0" max="10"/>
-
-<br>
-
-<input type="submit" value="È·¶¨" onclick="main()"/>
-
-</form>
-
-
-
-
-
-<script>
-
-var direction=8; //ÌøÔ¾·½Ïò
-
-var MAX_STEP=50; //×î´ó²½Êı
-
-var num=0;
-
-var path=new Array(MAX_STEP + 1); 
-
-
-
-
-
-for(var i=0;i<(MAX_STEP+1);i++){
-
-path[i]=new Array(2);
-
-}//´æÂ·¾¶
-
-var dx=new Array( 0, 1, 2, 2, 1, -1, -2, -2, -1);//±íÊ¾·½Ïò
-
-var dy=new Array( 0, 2, 1, -1, -2, 2, 1, -1, -2);//±íÊ¾·½Ïò
-
-
-
-
-
-function Path(MAX_X, MAX_Y, step,xy){
-
-for (var i = 0; i < MAX_Y;i++)
-
-for (var j = 0; j < MAX_X; j++)
-
-xy[i][j] = 0;
-
-for (var i = 1; i < step; i++){
-
-xy[path[i][1]][path[i][0]] = 1;
-
+<body>
+       <div id="div 1" >
+        <table border="1" id="gettable">
+               
+                <tr>
+                    <!--ç¬¬ä¸€è¡Œ-->
+                <td>æ£‹ç›˜è¡Œæ•°m</td>
+                <td>æ£‹ç›˜åˆ—æ•°n</td>
+                <td>é©¬åˆå§‹ä½ç½®xåæ ‡ï¼ˆè¡Œå·ä»0å¼€å§‹ï¼‰</td>
+                <td>é©¬åˆå§‹ä½ç½®yåæ ‡ï¼ˆè¡Œå·ä»0å¼€å§‹ï¼‰</td>
+                </tr>
+                <tr>
+                    <!--ç¬¬äºŒè¡Œ-->
+                <td>
+                   <!--å¾—åˆ°æ£‹ç›˜è¡Œæ•°m-->
+                   <input   id="m" type="number"  min="0"max="10"step="1"value="0">   
+                </td>
+                <td>
+                    <!--å¾—åˆ°æ£‹ç›˜åˆ—æ•°n-->
+                   <input   id="n"type="number"  min="0" max="10"step="1"value="0"> 
+                </td>
+                <td>
+                    <!--å¾—åˆ°é©¬èµ·ç‚¹ä½ç½®ma_x-->
+                    <input   id="ma_x"type="number"  min="0" max="10" step="1" value="0">
+                </td>
+                <td>
+                    <!--å¾—åˆ°é©¬èµ·ç‚¹ä½ç½®ma_y-->
+                    <input   id="ma_y" type="number"  min="0"max="10" step="1"value="0">
+                </td>
+                </tr>
+                <tr>
+                     <!--ç¬¬ä¸‰è¡Œ-->
+                <td>
+                <input id="getOK" type="button"value="æ‰§è¡Œ"  onclick="print()">
+                <input id="cleartext" type="button" value="æ¸…ç©º" onclick="show_confirm()">
+                    
+                </td>    
+                </tr>
+                </table>
+                <style>
+                    <!--è®¾ç½®è¡¨æ ¼çš„å½¢å¼ï¼Œtdæ˜¯å•å…ƒæ ¼ï¼Œtableæ˜¯æ•´ä½“ã€‚-->
+                table
+                {
+                    border: 1px solid blue;
+                    width:100%;
+                    text-align: center; 
+                }
+                th
+                {
+                    border: 1px solid red;
+                    
+                }
+                td
+                {
+                    border: 1px solid #0906F1;
+                    height:30px;
+                    width:10%;
+                    text-align: center; 
+                }
+                </style>
+         </div>
+         <div id="div2">
+                <textarea name="result_text" id="result_text" cols="100" rows="30"  onpropertychange= "this.style.posHeight=this.scrollHeight ">è·¯çº¿ç»“æœï¼š</textarea>
+        </div>
+        <script type="text/javascript">
+            // <!--å¼€å§‹ç¼–å†™è·³é©¬ç¨‹åº-->
+            var road_ma=0;//æ€»è·¯çº¿æ•°
+            var m,n,ma_x,ma_y;
+            var road_x=new Array();//å­˜å‚¨å½“å‰çš„è·¯å¾„x
+            var road_y=new Array();//å­˜å‚¨å½“å‰çš„è·¯å¾„y
+            var road_num=0;//ç›®å‰èµ°äº†å‡ æ­¥ï¼Ÿ
+            var checkerboard=new Array();//æ£‹ç›˜æ•°ç»„,1=å·²ç»èµ°è¿‡ï¼Œ0=æ²¡èµ°è¿‡ï¼Œ2=è¾¹ç•Œç‚¹
+            var boundarynum=0;//åˆ¤æ–­æ£‹å­æ˜¯å¦èµ°åˆ°è¿‡è¾¹ç•Œ
+            var ma_x_everyroad=new Array("1","2","2","1","-1","-2","-2","-1");//å†™æ¯æ­¥çš„8ä¸ªæ–¹å‘çš„èµ°æ³•ï¼Œæ¯ä¸€æ­¥xçš„èµ°æ³•
+            var ma_y_everyroad=new Array("2","1","-1","-2","-2","-1","1","2");//æ¯ä¸€æ­¥yçš„èµ°æ³•
+             function print()
+             {//ç›¸å½“äºmain
+                 road_num=0;//æ¯æ¬¡printéƒ½æ˜¯æ–°çš„
+                 //è¯»å–æ£‹ç›˜m*nï¼Œèµ·ç‚¹ma_x,ma_y
+                 m=parseInt(document.getElementById("m").value);
+                 n=parseInt(document.getElementById("n").value);
+                 ma_x=parseInt(document.getElementById("ma_x").value);
+                 ma_y=parseInt(document.getElementById("ma_y").value);
+                 console.log("m=%d,n=%d,ma_x=%d,ma_y=%d\n",m,n,ma_x,ma_y);
+ //                 for(var i=0;i<8;i++)
+ //                {  //å°è¯•è¾“å‡ºè®¾ç½®å¥½çš„8ä¸ªæ–¹å‘
+ //                        console.log("id=%d,x+=%d,y+=%d\n",i,parseInt(ma_x_everyroad[i]),parseInt(ma_y_everyroad[i]));
+ //                    
+ //                }
+                 if(ma_x>m||ma_y>n)
+                 {
+                     print_wrong();
+                     return 0;//å‡ºç°æ£‹ç›˜ã€Šèµ·ç‚¹ï¼ŒæŠ¥é”™é€€å‡º
+                 }
+                 for(var i=0;i<m;i++)
+                 {//åˆå§‹åŒ–èµ·ç›˜
+                    checkerboard[i]=new Array();
+                    for(var j=0;j<n;j++)
+                    {
+                        checkerboard[i][j]=0;
+                    }
+                 }
+                 //è®°å½•èµ·å§‹ç‚¹
+                 road_x[road_num]=ma_x;
+                 road_y[road_num]=ma_y;
+                 ++road_num;
+                 //å¼€å§‹å¯¹å‰è¿›å¤„ç†
+                 jump_ma(ma_x,ma_y,m,n,ma_x,ma_y);
+                 document.getElementById("result_text").innerText=document.getElementById("result_text").value+"å…±æœ‰"+road_ma+"æ¡çº¿";    
+                 console.log("è¿ç®—ç»“æŸ");
+                 road_ma=0;
+             }
+               
+             function print_wrong()
+             {
+                 //åˆ¤æ–­æ˜¯å¦æ£‹ç›˜å¤§å°å’Œèµ·ç‚¹æœ‰è¯¯
+                if (confirm("èµ·ç‚¹ä¸åœ¨æ£‹ç›˜ä¸Šï¼Ÿ"))
+                 {  
+                    alert("ç¡®å®šï¼Œé‡æ–°ä¿®æ”¹");  
+                 }  
+                else {  
+                    alert("ç‚¹å‡»äº†å–æ¶ˆ");  
+                 }  
+             }
+             function jump_ma(x,y,m,n,ma_x,ma_y)
+             {
+                 for(var i=0;i<8;i=i+1)
+                 {
+                     var new_x=x+parseInt(ma_x_everyroad[i]);//ä¸‹ä¸€æ­¥çš„X
+                     var new_y=y+parseInt(ma_y_everyroad[i]);//ä¸‹ä¸€æ­¥çš„Y
+                     if(jump_begin(new_x,new_y,ma_x,ma_y)==0)
+                     {  //console.log("å½“å‰ç‚¹(%d,%d)",new_x,new_y);
+                         if(jump_boundary(new_x,new_y,m,n)==-1)
+                         {//å½“ä¸‹ä¸€æ­¥è¶…å‡ºè¾¹ç•Œ
+                        //       console.log("(%d,%d)è¶…å‡ºè¾¹ç•Œ",new_x,new_y);
+                               continue;
+                         }
+                         if(jump_boundary(new_x,new_y,m,n)==1)
+                         {//å½“ä¸‹ä¸€æ­¥åœ¨è¾¹ç•Œä¸Š
+                              if(checkerboard[new_x][new_y]==0)
+                              {//åœ¨è¾¹ç•Œä¸Šçš„ä¸‹ä¸€æ­¥æ²¡èµ°è¿‡
+                               //  x=new_x;
+                               //  y=new_y;
+                                  if(boundarynum%2==0)
+                                 {//å½“æ²¡æœ‰åˆ°è¿‡è¾¹ç•Œ
+                                    boundarynum=boundarynum+1;
+                                    checkerboard[new_x][new_y]=2;
+                        //            console.log("åˆ°è¾¾è¾¹ç•Œ");
+                                 }
+                                else
+                                {
+                                    checkerboard[new_x][new_y]=1;//1=å·²ç»èµ°è¿‡ï¼Œ0=æ²¡èµ°è¿‡ï¼Œ2=è¾¹ç•Œç‚¹
+                                }
+                                 road_x[road_num]=new_x;
+                                 road_y[road_num]=new_y;
+                                 ++road_num;
+                        //         console.log("å‰è¿›(%d,%d)",x,y);
+                                 jump_ma(new_x,new_y,m,n,ma_x,ma_y);
+                        //         console.log("åé€€è‡³(%d,%d)",x,y);
+					             continue;
+                              }
+                           //   else
+                            //  {//ä¸‹ä¸€æ­¥åœ¨è¾¹ç•Œä¸Šï¼Œä¸”èµ°è¿‡
+                                  continue;
+                            //  }
+                         }
+                         if(jump_boundary(new_x,new_y,m,n)==0)
+                         {//å½“ä¸‹ä¸€æ­¥åœ¨å…¶ç›˜å†…
+                              if(checkerboard[new_x][new_y]==0)
+                              {//ä¸‹ä¸€æ­¥æ²¡èµ°è¿‡
+                                // x=new_x;
+                                //  y=new_y;
+                                 checkerboard[new_x][new_y]=1;//1=å·²ç»èµ°è¿‡ï¼Œ0=æ²¡èµ°è¿‡
+                                 road_x[road_num]=new_x;
+                                 road_y[road_num]=new_y;
+                                 ++road_num;
+                        //         console.log("å‰è¿›(%d,%d)",new_x,new_y);
+                                 jump_ma(new_x,new_y,m,n,ma_x,ma_y);
+                        //         console.log("åé€€è‡³(%d,%d)",x,y);
+					             continue;
+                              }
+                            //  else
+                            //  {//ä¸‹ä¸€æ­¥èµ°è¿‡
+                            //      continue;
+                            //  }
+                         }
+                         //ä»¥ä¸Šä¸ºå½“ä¸‹ä¸€æ­¥ä¸æ˜¯èµ·ç‚¹çš„æ—¶å€™
+                     }
+                     else
+                     {//å½“ä¸‹ä¸€æ­¥è¿”å›èµ·ç‚¹æ—¶
+                        console.log("(%d,%d)æ˜¯èµ·ç‚¹",new_x,new_y);
+                         if(boundarynum%2==1&&road_num>2)
+                         {
+                             road_ma=road_ma+1;
+                            boundarynum=boundarynum+1;
+                            var str="ç»“æœæ˜¯ï¼š";
+                            for(var i=0;i<road_num;i++)
+                            {
+                                str=str+"("+road_x[i]+","+road_y[i]+")>>";
+                            }
+                            str="\r\n"+str+"("+ma_x+","+ma_y+")";
+                            addText(str);
+                           console.log("ç»“æœæ˜¯ï¼š"+str);
+                         }
+                         else
+                         {
+                             if(jump_boundary(road_x[1],road_y[1],m,n)==1)
+                             {
+                            road_ma=road_ma+1;
+                            var str="ç»“æœæ˜¯ï¼š";
+                            str="\r\n"+str+"("+ma_x+","+ma_y+")>>"+"("+road_x[1]+","+road_y[1]+")>>"+"("+ma_x+","+ma_y+")";
+                            console.log("ç»“æœæ˜¯ï¼š"+str);
+                            addText(str);
+                             }
+                         }
+                     }
+                 }
+                 //å½“è¯¥ç‚¹æ‰€æœ‰æ–¹å‘èµ°éåæ²¡æœ‰å‰è¿›
+                 
+                 if(checkerboard[x][y]==2)
+                 {
+                     boundarynum=boundarynum-1;
+                //     console.log("é€€å›è¾¹ç•Œ");
+                 }
+                 checkerboard[x][y]=0;
+                 road_x[road_num]=0;
+                 road_y[road_num]=0;
+                 road_num=road_num-1;
+                // console.log("(%d,%d),æ— è·¯å¯èµ°é€€å›",x,y);
+                 return 1;
+             }
+              function jump_boundary(x,y,m,n)
+             {
+                if (x >= m || x < 0 || y >= n || y < 0)
+	             {//è¶…å‡ºè¾¹ç•Œ
+		              return -1;
+	             }
+	            if (x == m-1 || x == 0 || y == 0 || y == n-1)
+	             {//åœ¨è¾¹ç•Œä¸Š
+		              return 1;
+	             }
+	             if (x<m-1&&x>0&&y<n-1&&y>0)
+	             {//0<=x<m,0<=y<nï¼Œåœ¨è¾¹ç•Œå†…
+		              return 0;
+	             }
+              }
+              function jump_begin(x,y,ma_x,ma_y)
+              {
+                  if(x==ma_x&&y==ma_y)
+                  {//1=å·²åˆ°èµ·ç‚¹
+                      return 1;
+                  }
+                  else
+                  {//0=æœªåˆ°èµ·ç‚¹
+                      return 0;
+                  }
+              }
+              function addText(str)
+              {
+                 document.getElementById("result_text").innerText=document.getElementById("result_text").value+str;                
+              }
+              function show_confirm()
+             {
+                var r=confirm("ç¡®è®¤è¦æ¸…ç©ºå—ï¼Ÿ");
+                if (r==true)
+                { 
+                    alert("æ˜¯ï¼");
+                    document.getElementById("result_text").innerText="è·¯çº¿ç»“æœï¼š"             
+                }
+                else
+                {alert("å¦ï¼");}
 }
-
-}
-
-
-
-
-
-function Judgment(x, y, xy){
-
-var judge = false;
-
-
-
-if (xy[y][x]!=0)//ÖØ¸´½áµã£¬´íÎóÂ·¾¶
-
-judge = true; 
-
-else
-
-xy[y][x] = 1;
-
-return judge;//falseÎª¿ÉĞĞÂ·¾¶
-
-}
-
-
-
-
-
-function Jump( MAX_X, MAX_Y,x,y,step,xy){
-
-var t1, t2, t3, t4;
-
-var x1, y1;
-
-
-
-Path(MAX_X, MAX_Y,step,xy);
-
-for (var k = 1; k <= direction; k++){
-
-//³¯°Ë¸ö·½ÏòÖĞµÄÄ³¸ö·½ÏòÌøÔ¾
-
-x1 = x + dx[k];
-
-y1 = y + dy[k];
-
-
-
-//Ìø³ö±ß½ç£¬½øÈëÏÂÒ»ÖÖÂ·¾¶µÄ²éÕÒ
-
-if (x1 > MAX_X || y1 > MAX_Y || x1 < 0 || y1 < 0)
-
-continue;
-
-
-
-t1 = (x1 >= 0) && (x1 <= MAX_X);//×óÓÒ±ß½çÄÚ
-
-t2 = (y1 >= 0) && (y1 <= MAX_Y);//ÉÏÏÂ±ß½çÄÚ
-
-//±ß½ç
-
-
-
-t3 = (x1 == path[0][0]);
-
-t4 = (y1 == path[0][1]);
-
-
-
-if (t1 && t2){//ÔÚÆåÅÌÄÚ
-
-//¼ÇÂ¼Î»ÖÃ
-
-if (!Judgment(x1, y1,xy)){//·µ»Øfalse±íÊ¾Ã»ÓĞÖØ¸´£¬¿ÉÒÔ¼ÌĞøÑ°ÕÒÂ·¾¶
-
-//continue;
-
-path[step][0] = x1;
-
-path[step][1] = y1;
-
-
-
-
-
-if (t3 && t4){
-
-num++;
-
-document.write("·½°¸"+num+":");
-
-
-
-for (var i = 0; i <= step; i++){
-
-document.write( "("+path[i][0]+","+path[i][1]+")");
-
-if (i != step)
-
-document.write(" -> ");
-
-}//for(i) 
-
-document.write("<br>");
-
-}//if(t3456)
-
-else{
-
-Jump(MAX_X, MAX_Y,x1, y1, step + 1,xy); 
-
-}//else
-
-}//if (!Judgment(x1, y1))
-
-}//if(t1 && t2)
-
-}//for(k)
-
-}
-
-
-
-
-
-function main(){
-
-//³õÊ¼Î»ÖÃ 
-
-
-
-var MAX_X; //XÖá×î´ó±ß½ç
-
-var MAX_Y; //YÖá×î´ó±ß½ç
-
-var a,b;
-
-
-
-
-
-MAX_X=document.getElementById("column").value;
-
-MAX_Y=document.getElementById("row").value;
-
-a=path[0][0]=document.getElementById("fromColumn").value; 
-
-b=path[0][1]=document.getElementById("fromRow").value;
-
-
-
-
-
-
-
-if(MAX_X>10 || MAX_Y>10 || a>10 ||b>10 || (a+1)>MAX_X || (b+1)>MAX_Y){
-
-document.write("¾Ü¾ø·şÎñ£¡Çë°´ÕÕ¹æ·¶ÊäÈëÊı¾İ");
-
-}
-
-var xy=new Array(MAX_Y+1);
-
-for(var i=0;i<MAX_Y+1;i++){
-
-xy[i]=new Array(MAX_X+1);
-
-}
-
-for(var i=0;i<MAX_Y+1;i++){
-
-for(var j=0;j<MAX_X+1;j++){
-
-xy[i][j]=0;
-
-}
-
-}
-
-
-
-Jump(MAX_X, MAX_Y,0, 0, 1,xy);
-
-document.write("×Ü·½°¸Êı"+ num); 
-
-if(num==0){
-
-document.write("Ã»ÓĞ°¦!!!");
-
-}
-
-}
-
-
-
-</script>
-
+        </script>
 </body>
-
 </html>
-
-</DOCTYPRE>
